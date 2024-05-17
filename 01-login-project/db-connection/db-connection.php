@@ -1,14 +1,16 @@
 <?php 
 
-$servername = "localhost";
-$dbusername = "root";
-$dbpassword = "root";
-$dbname = "users01";
+$host = "localhost";
+$dbUsername = "root";
+$dbPassword = "root";
 
-// Create connection
-$conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
-
-//Check connection
-if ( $conn->connect_error ) {
-    die("Connection Failed: " . $conn->connect_error);
+// Create and check connection
+try {
+    $pdo = new PDO("mysql:host = $host", $dbUsername, $dbPassword);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch ( PDOException $e ) {
+    // Handle database connection or query errors
+    $_SESSION["errors"] = ["Database error: " . $e->getMessage()];
+    header("Location: ../forms/login-register.php");
+    exit();
 }
