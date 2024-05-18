@@ -41,6 +41,48 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION["errors"] = $errors;
         header("Location: ../login-register.php");
         exit();
+    } else {
+        try {
+            // Connect to MySQL server
+            require_once("../../db-connection/db-connection.php");
+
+            // Create database if it does not exist
+            $pdo->exec("CREATE DATABASE IF NOT EXISTS users01");
+
+            // Connect to the newly created database
+            $pdo->exec("USE users01");
+
+            // Create table if it does not exist
+            $pdo->exec("
+                CREATE TABLE IF NOT EXISTS users  (
+                    id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+                    username VARCHAR(30) NOT NULL,
+                    email VARCHAR(50) NOT NULL,
+                    password VARCHAR(255) NOT NULL,
+                    reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+                )
+            ");
+
+             // Prepare an insert statement
+             $stmt = $pdo->prepare("INSERT INTO users (username, email, password) VALUES (:username, :email, :password)");
+
+             // Bind parameters
+             $stmt->bindParam(":username", $userName);
+             $stmt->bindParam(":email", $userEmail);
+             $stmt->bindParam(":password", password_hash($userPass, PASSWORD_DEFAULT));
+
+             // Execute the statement
+             $stmt->execute();
+
+             // Redirect to success page or login page
+             header("Location: ../../index.php");
+             exit();
+        } catch (PDOException $e) {
+            // Handle database connection or query errors
+            $_SESSION["errors"] = ["Database error: " . $e->getMessage()];
+            header("Location: ../login-register.php");
+            exit();
+        }
     }
 
 }
