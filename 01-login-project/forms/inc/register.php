@@ -1,9 +1,10 @@
-<?php 
+<?php
 
 session_start();
 
 // Function for input validation
-function validate_input($data) {
+function validate_input($data)
+{
     $data = trim($data);
     $data = stripslashes($data); // Correct function name
     $data = htmlspecialchars($data);
@@ -16,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $userEmail = validate_input($_POST["useremail"]);
     $userPass = validate_input($_POST["userpass"]);
     $repPass = validate_input($_POST["reppass"]);
-    
+
     $errors = [];
 
     // Checking fields are not empty
@@ -63,27 +64,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 )
             ");
 
-             // Prepare an insert statement
-             $stmt = $pdo->prepare("INSERT INTO users (username, email, password) VALUES (:username, :email, :password)");
+            // Check if email already exists
+            $stmt = $pdo->prepare("SELECT id FROM users WHERE email = :email");
+            $stmt->bindParam(':email', $userEmail);
+            $stmt->execute();
 
-             // Bind parameters
-             $stmt->bindParam(":username", $userName);
-             $stmt->bindParam(":email", $userEmail);
-             $stmt->bindParam(":password", password_hash($userPass, PASSWORD_DEFAULT));
+            if ($stmt->rowCount() > 0) {
+                // Email already exists
+                $_SESSION["errors"] = ["User with this email already exists!"];
+                header("Location: ../login-register.php");
+                exit();
+            }
 
-             // Execute the statement
-             $stmt->execute();
+            // Prepare an insert statement
+            $stmt = $pdo->prepare("INSERT INTO users (username, email, password) VALUES (:username, :email, :password)");
 
-             // Get the user's ID
-             $userId = $pdo->lastInsertId();
+            // Bind parameters
+            $stmt->bindParam(":username", $userName);
+            $stmt->bindParam(":email", $userEmail);
+            $stmt->bindParam(":password", password_hash($userPass, PASSWORD_DEFAULT));
 
-             // Set session variables for the new user
-             $_SESSION['user_id'] = $userId;
-             $_SESSION['username'] = $userName;
+            // Execute the statement
+            $stmt->execute();
 
-             // Redirect to success page or login page
-             header("Location: ../../index.php");
-             exit();
+            // Get the user's ID
+            $userId = $pdo->lastInsertId();
+
+            // Set session variables for the new user
+            $_SESSION['user_id'] = $userId;
+            $_SESSION['username'] = $userName;
+
+            // Redirect to success page or login page
+            header("Location: ../../index.php");
+            exit();
         } catch (PDOException $e) {
             // Handle database connection or query errors
             $_SESSION["errors"] = ["Database error: " . $e->getMessage()];
@@ -91,5 +104,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             exit();
         }
     }
-
 }
