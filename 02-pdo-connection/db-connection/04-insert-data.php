@@ -12,7 +12,7 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     // sql to insert data
     $sql = "INSERT INTO MyGuests (firstname, lastname, email)
-    VALUES ('Mahdi', 'Bayat', 'mahdibayat@gmail.com')";
+    VALUES ('GOD', 'Gody', 'god@gmail.com')";
     // use exec() because no results are returned
     var_dump($pdo->exec($sql));
     echo "<br>";
