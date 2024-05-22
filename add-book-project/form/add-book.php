@@ -1,3 +1,6 @@
+<?php 
+require_once("../loader/db-connection.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,7 +18,7 @@
                 <a class="btn btn-primary" href="#">Back</a>
             </div>
         </header>
-        <form action="" method="post">
+        <form action="process.php" method="post">
             <div class="form-element my-4">
                 <input class="form-control" type="text" name="title" placeholder="Book Title:">
             </div>
