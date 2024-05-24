@@ -17,6 +17,47 @@
                 <a class="btn btn-primary" href="form/add-book.php">Add New Book</a>
             </div>
         </header>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Type</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php 
+                    // Conneted to database
+                    require_once("loader/db-connection.php");
+                    // SQL to select and show data
+                    $sql = "SELECT * FROM books";
+                    $stmt = $conn->prepare($sql);
+                    $stmt->execute();
+                    $stmt->setFetchMode(PDO::FETCH_OBJ);
+                    $result = $stmt->fetchAll();                    
+
+                    if ( $result ) {
+                        foreach ( $result as $row ) {
+                            ?>
+                                <tr>
+                                    <td><?php echo $row->id ?></td>
+                                    <td><?php echo $row->title ?></td>
+                                    <td><?php echo $row->author ?></td>
+                                    <td><?php echo $row->type ?></td>
+                                    <td>
+                                        <a href="#" class="btn btn-info">Read More</a>
+                                        <a href="#" class="btn btn-warning">Edit</a>
+                                        <a href="#" class="btn btn-danger">Delete</a>
+                                    </td>
+                                </tr>
+                            <?php
+                        }
+                    }
+                ?>
+            </tbody>
+        </table>
     </div>
 </body>
 

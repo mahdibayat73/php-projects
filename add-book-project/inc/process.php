@@ -70,7 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt = $conn->prepare($sql);
             $stmt->bindParam(":title", $title);
             $stmt->bindParam(":author", $author);
-            $stmt->bindParam(":type", $title);
+            $stmt->bindParam(":type", $type);
             $stmt->bindParam(":description", $description);
             $stmt->execute();
             
