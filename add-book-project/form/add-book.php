@@ -17,7 +17,7 @@ session_start();
         <header class="d-flex justify-content-between my-4">
             <h1>Add New Book</h1>
             <div>
-                <a class="btn btn-primary" href="#">Back</a>
+                <a class="btn btn-primary" href="../index.php">Back</a>
             </div>
         </header>
         <?php
