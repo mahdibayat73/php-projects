@@ -63,8 +63,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['form_data'] = $inputs;
         header("Location: ../form/add-book.php");
     } else {
-        echo "<pre>";
-        var_dump($_POST);
-        echo "</pre>";
+        require_once("../loader/db-connection.php");
     }
 }

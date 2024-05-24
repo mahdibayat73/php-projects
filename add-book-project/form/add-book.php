@@ -1,6 +1,5 @@
 <?php
 session_start();
-require_once("../loader/db-connection.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
