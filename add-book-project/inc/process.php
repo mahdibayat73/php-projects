@@ -25,14 +25,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $title = validate_input($_POST["title"]);
     $author = validate_input($_POST["author"]);
     $type = validate_input($_POST["type"]);
-    $desc = validate_input($_POST["desc"]);
+    $description = validate_input($_POST["desc"]);
 
     // Collect all inputs into an array
     $inputs = [
         'title' => $title,
         'author' => $author,
         'type' => $type,
-        'description' => $desc
+        'description' => $description
     ];
 
     // Check if all fields are filled
@@ -63,6 +63,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['form_data'] = $inputs;
         header("Location: ../form/add-book.php");
     } else {
+        // sql to insert data
         require_once("../loader/db-connection.php");
+        try {
+            $sql = "INSERT INTO books (title, author, type, description) VALUES (:title, :author, :type, :description)";
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(":title", $title);
+            $stmt->bindParam(":author", $author);
+            $stmt->bindParam(":type", $title);
+            $stmt->bindParam(":description", $description);
+            $stmt->execute();
+            echo "New record created successfully";
+        } catch ( PDOException $e ) {
+            echo $sql . "<br>" . $e->getMessage();
+        }
     }
 }
