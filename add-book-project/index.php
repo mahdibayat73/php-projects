@@ -42,12 +42,12 @@
                         foreach ( $result as $row ) {
                             ?>
                                 <tr>
-                                    <td><?php echo $row->id ?></td>
-                                    <td><?php echo $row->title ?></td>
-                                    <td><?php echo $row->author ?></td>
-                                    <td><?php echo $row->type ?></td>
+                                    <td><?php echo $row->id; ?></td>
+                                    <td><?php echo $row->title; ?></td>
+                                    <td><?php echo $row->author; ?></td>
+                                    <td><?php echo $row->type; ?></td>
                                     <td>
-                                        <a href="#" class="btn btn-info">Read More</a>
+                                        <a href="inc/view-book.php?id=<?php echo $row->id ?>" class="btn btn-info">Read More</a>
                                         <a href="#" class="btn btn-warning">Edit</a>
                                         <a href="#" class="btn btn-danger">Delete</a>
                                     </td>
