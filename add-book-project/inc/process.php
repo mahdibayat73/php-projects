@@ -63,7 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['form_data'] = $inputs;
         header("Location: ../form/add-book.php");
     } else {
-        // sql to insert data
+        // Connect to data base and sql to insert data
         require_once("../loader/db-connection.php");
         try {
             $sql = "INSERT INTO books (title, author, type, description) VALUES (:title, :author, :type, :description)";
@@ -73,7 +73,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->bindParam(":type", $title);
             $stmt->bindParam(":description", $description);
             $stmt->execute();
-            echo "New record created successfully";
+            
+            // Redirect to index.php(book list page)
+            header("Location: ../index.php");
         } catch ( PDOException $e ) {
             echo $sql . "<br>" . $e->getMessage();
         }
