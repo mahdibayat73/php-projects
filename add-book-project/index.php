@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,33 +29,33 @@
                 </tr>
             </thead>
             <tbody>
-                <?php 
-                    // Conneted to database
-                    require_once("loader/db-connection.php");
-                    // SQL to select and show data
-                    $sql = "SELECT * FROM books";
-                    $stmt = $conn->prepare($sql);
-                    $stmt->execute();
-                    $stmt->setFetchMode(PDO::FETCH_OBJ);
-                    $result = $stmt->fetchAll();                    
+                <?php
+                // Conneted to database
+                require_once("loader/db-connection.php");
+                // SQL to select and show data
+                $sql = "SELECT * FROM books";
+                $stmt = $conn->prepare($sql);
+                $stmt->execute();
+                $stmt->setFetchMode(PDO::FETCH_OBJ);
+                $result = $stmt->fetchAll();
 
-                    if ( $result ) {
-                        foreach ( $result as $row ) {
-                            ?>
-                                <tr>
-                                    <td><?php echo $row->id; ?></td>
-                                    <td><?php echo $row->title; ?></td>
-                                    <td><?php echo $row->author; ?></td>
-                                    <td><?php echo $row->type; ?></td>
-                                    <td>
-                                        <a href="inc/view-book.php?id=<?php echo $row->id ?>" class="btn btn-info">Read More</a>
-                                        <a href="#" class="btn btn-warning">Edit</a>
-                                        <a href="#" class="btn btn-danger">Delete</a>
-                                    </td>
-                                </tr>
-                            <?php
-                        }
+                if ($result) {
+                    foreach ($result as $row) {
+                ?>
+                        <tr>
+                            <td><?php echo $row->id; ?></td>
+                            <td><?php echo $row->title; ?></td>
+                            <td><?php echo $row->author; ?></td>
+                            <td><?php echo $row->type; ?></td>
+                            <td>
+                                <a href="inc/view-book.php?id=<?php echo $row->id ?>" class="btn btn-info">Read More</a>
+                                <a href="inc/edit-book.php?id=<?php echo $row->id ?>" class="btn btn-warning">Edit</a>
+                                <a href="#" class="btn btn-danger">Delete</a>
+                            </td>
+                        </tr>
+                <?php
                     }
+                }
                 ?>
             </tbody>
         </table>

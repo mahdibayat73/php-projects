@@ -18,15 +18,16 @@ $errors = [];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    if (isset($_POST["create"])) {
+    if (isset($_POST["edit"])) {
         // Initialize variables with empty values
-        $title = $author = $type = $description = "";
+        $title = $author = $type = $description = $id = "";
 
         // Form information collection
         $title = validate_input($_POST["title"]);
         $author = validate_input($_POST["author"]);
         $type = validate_input($_POST["type"]);
         $description = validate_input($_POST["desc"]);
+        $id = validate_input($_POST["id"]);
 
         // Collect all inputs into an array
         $inputs = [
@@ -62,21 +63,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (!empty($errors)) {
             $_SESSION["errors"] = $errors;
             $_SESSION['form_data'] = $inputs;
-            header("Location: ../form/add-book.php");
+            header("Location: edit-book.php");
         } else {
             // Connect to data base and sql to insert data
             require_once("../loader/db-connection.php");
             try {
-                $sql = "INSERT INTO books (title, author, type, description) VALUES (:title, :author, :type, :description)";
+                $sql = "UPDATE books SET title = :title, author = :author, type = :type, description = :description WHERE id=$id";
                 $stmt = $conn->prepare($sql);
                 $stmt->bindParam(":title", $title);
                 $stmt->bindParam(":author", $author);
                 $stmt->bindParam(":type", $type);
                 $stmt->bindParam(":description", $description);
                 $stmt->execute();
-
+                $_SESSION["edited"] = "Edited successfully";
                 // Redirect to index.php(book list page)
-                header("Location: ../index.php");
+                header("Location: edit-book.php");
             } catch (PDOException $e) {
                 echo $sql . "<br>" . $e->getMessage();
             }
