@@ -76,6 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $stmt->execute();
 
                 // Redirect to index.php(book list page)
+                $_SESSION["added"] = "Book Added Successfully";
                 header("Location: ../index.php");
             } catch (PDOException $e) {
                 echo $sql . "<br>" . $e->getMessage();

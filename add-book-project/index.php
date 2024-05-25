@@ -24,6 +24,12 @@
                 <?php unset($_SESSION["deleted"]); ?>
             </div>
         <?php endif; ?>
+        <?php if (isset($_SESSION["added"]) && !empty($_SESSION["added"])) : ?>
+            <div class="alert alert-success mt-4" role="alert">
+                <?php echo $_SESSION["added"]; ?>
+                <?php unset($_SESSION["added"]); ?>
+            </div>
+        <?php endif; ?>
         <table class="table table-bordered">
             <thead>
                 <tr>
