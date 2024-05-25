@@ -62,7 +62,7 @@
                                 <td><?php echo $row->type; ?></td>
                                 <td>
                                     <a href="inc/view-book.php?id=<?php echo $row->id ?>" class="btn btn-info">Read More</a>
-                                    <a href="inc/edit-book.php?id=<?php echo $row->id ?>" class="btn btn-warning">Edit</a>
+                                    <a href="form/edit-book.php?id=<?php echo $row->id ?>" class="btn btn-warning">Edit</a>
                                     <a href="inc/delete-book.php?id=<?php echo $row->id ?>" class="btn btn-danger">Delete</a>
                                 </td>
                             </tr>

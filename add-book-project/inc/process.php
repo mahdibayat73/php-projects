@@ -63,6 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION["errors"] = $errors;
             $_SESSION['form_data'] = $inputs;
             header("Location: ../form/add-book.php");
+            exit();
         } else {
             // Connect to data base and sql to insert data
             require_once("../loader/db-connection.php");
@@ -78,9 +79,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // Redirect to index.php(book list page)
                 $_SESSION["added"] = "Book Added Successfully";
                 header("Location: ../index.php");
+                exit();
             } catch (PDOException $e) {
                 echo $sql . "<br>" . $e->getMessage();
             }
         }
     }
 }
+
+$conn = null;
