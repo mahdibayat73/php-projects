@@ -18,6 +18,12 @@
                 <a class="btn btn-primary" href="form/add-book.php">Add New Book</a>
             </div>
         </header>
+        <?php if (isset($_SESSION["deleted"]) && !empty($_SESSION["deleted"])) : ?>
+            <div class="alert alert-success mt-4" role="alert">
+                <?php echo $_SESSION["deleted"]; ?>
+                <?php unset($_SESSION["deleted"]); ?>
+            </div>
+        <?php endif; ?>
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -50,7 +56,7 @@
                             <td>
                                 <a href="inc/view-book.php?id=<?php echo $row->id ?>" class="btn btn-info">Read More</a>
                                 <a href="inc/edit-book.php?id=<?php echo $row->id ?>" class="btn btn-warning">Edit</a>
-                                <a href="#" class="btn btn-danger">Delete</a>
+                                <a href="inc/delete-book.php?id=<?php echo $row->id ?>" class="btn btn-danger">Delete</a>
                             </td>
                         </tr>
                 <?php
