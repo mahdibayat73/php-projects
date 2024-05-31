@@ -13,3 +13,17 @@ try {
 } catch ( PDOException $e ) {
     echo "Connection failed: " . $e->getMessage();
 }
+
+// SQL to insert data
+try {
+    $sql = "INSERT INTO users (fname, lname) VALUES (:fname, :lname)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(':fname', $fname);
+    $stmt->bindParam(':lname', $lname);
+    $fname = "11";
+    $lname = "Khordad";
+    $stmt->execute();
+    echo "New record created successfully";
+} catch ( PDOException $e ) {
+    echo $sql . "<br>" . $e->getMessage();
+}
