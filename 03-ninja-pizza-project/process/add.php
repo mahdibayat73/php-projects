@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 // Create a function to validate inputs
 function validate_input($data)
 {
@@ -17,7 +17,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $email = validate_input($_POST["email"]);
         $title = validate_input($_POST["title"]);
         $ingredients = validate_input($_POST["ingredients"]);
-    } 
+        $errors = [];
+
+        // Collect all inputs into an array
+        $inputs = [
+            'email' => $email,
+            'title' => $title,
+            'ingredients' => $ingredients,
+        ];
+
+        // Check inputs not empty
+        if (empty($email) || empty($title) || empty($ingredients)) {
+            array_push($errors, "All fields are required!");
+        }
+
+        if (!empty($errors)) {
+            // Set session variable
+            $_SESSION["errors"] = $errors;
+            $_SESSION["input_val"] = $inputs;
+            header("Location: ../add-pizza.php");
+        }
+    }
 } else {
     header("Location: ../add-pizza.php");
     exit();
