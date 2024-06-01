@@ -5,7 +5,7 @@ include_once "inc/header.php";
 
 <main class="container py-3">
     <h1>Order Your Pizza</h1>
-    <form id="form" class="p-4 bg-white rounded">
+    <form action="process/add.php" method="POST" id="form" class="p-4 bg-white rounded">
         <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Email address:</label>
             <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
