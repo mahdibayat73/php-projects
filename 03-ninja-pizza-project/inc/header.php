@@ -15,8 +15,8 @@
     <header id="header" class="bg-white">
         <div class="container">
             <div class="items-wrapper d-flex justify-content-between align-items-center py-4">
-                <div class="logo">Ninja Pizza</div>
-                <a href="#" class="add-pizza btn btn-primary">Add Pizza</a>
+                <a href="index.php" class="logo text-decoration-none text-black">Ninja Pizza</a>
+                <a href="add-pizza.php" class="add-pizza btn btn-primary">Add Pizza</a>
             </div>
         </div>
     </header>
