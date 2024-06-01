@@ -1,3 +1,7 @@
 <?php include_once "inc/header.php"; ?>
-<h1>test</h1>
+
+<main class="container">
+    
+</main>
+
 <?php include_once "inc/footer.php"; ?>
