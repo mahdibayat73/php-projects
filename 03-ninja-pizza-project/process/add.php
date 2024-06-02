@@ -36,9 +36,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             array_push($errors, "Invalid email format!");
         }
 
-        //Validate Title
+        // Validate Title
         if (!preg_match("/^[a-zA-Z-' ]*$/", $title)) {
             array_push($errors, "Only letters and white space allowed for title!");
+        }
+
+        // Validate Ingredients
+        if(!preg_match('/^([a-zA-Z\s]+)(,\s*[a-zA-Z\s]*)*$/', $ingredients)){
+            array_push($errors, "Ingredients must be a comma separated list!");
         }
 
         if (!empty($errors)) {
