@@ -31,6 +31,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             array_push($errors, "All fields are required!");
         }
 
+        // Validate E-mail
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            array_push($errors, "Invalid email format");
+        }
+
         if (!empty($errors)) {
             // Set session variable
             $_SESSION["errors"] = $errors;
