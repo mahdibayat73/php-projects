@@ -18,7 +18,7 @@ include_once "inc/header.php";
         }
     ?>
     <h1>Order Your Pizza</h1>
-    <form action="process/add.php" method="POST" id="form" class="p-4 bg-white rounded">
+    <form action="process/add.php" method="POST" id="form" class="p-4 bg-white rounded" novalidate>
         <?php if (isset($_SESSION["errors"]) && !empty($_SESSION["errors"])) : ?>
             <?php foreach ($_SESSION["errors"] as $error) : ?>
                 <div class="alert alert-danger" role="alert">

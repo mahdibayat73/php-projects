@@ -33,7 +33,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Validate E-mail
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            array_push($errors, "Invalid email format");
+            array_push($errors, "Invalid email format!");
+        }
+
+        //Validate Title
+        if (!preg_match("/^[a-zA-Z-' ]*$/", $title)) {
+            array_push($errors, "Only letters and white space allowed for title!");
         }
 
         if (!empty($errors)) {
