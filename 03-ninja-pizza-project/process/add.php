@@ -51,8 +51,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION["errors"] = $errors;
             $_SESSION["input_val"] = $inputs;
             header("Location: ../add-pizza.php");
+            exit();
         } else {
             require_once("../loader/db_connection.php");
+            // Sql to insert data to the database
+            try {
+                $sql = "INSERT INTO pizzas (email, title, ingredients) VALUES (:email, :title, :ingredients)";
+                $stmt = $conn->prepare($sql);
+                $stmt->bindParam(":email", $email);
+                $stmt->bindParam(":title", $title);
+                $stmt->bindParam(":ingredients", $ingredients);
+                $stmt->execute();
+                echo "added";
+            } catch (PDOException $err) {
+                echo $sql . "<br>" . $err->getMessage();
+            }
+
         }
     }
 } else {
