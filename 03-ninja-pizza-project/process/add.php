@@ -51,6 +51,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION["errors"] = $errors;
             $_SESSION["input_val"] = $inputs;
             header("Location: ../add-pizza.php");
+        } else {
+            require_once("../loader/db_connection.php");
         }
     }
 } else {
