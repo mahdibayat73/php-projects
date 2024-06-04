@@ -62,7 +62,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $stmt->bindParam(":title", $title);
                 $stmt->bindParam(":ingredients", $ingredients);
                 $stmt->execute();
-                echo "added";
+                // Redirect to index.php(book list page)
+                $_SESSION["added"] = "Your Pizza Added Successfully!";
+                header("Location: ../index.php");
+                exit();
             } catch (PDOException $err) {
                 echo $sql . "<br>" . $err->getMessage();
             }
