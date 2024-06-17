@@ -25,6 +25,8 @@ if (isset($_GET['id'])) {
         // echo "Sql erro r: " . $sql . "Error is: " . $err->getMessage();
     }
 }
+
+$conn = null;
 ?>
 <main class="container py-3">
     <h1 class="text-center">Pizza's Page</h1>

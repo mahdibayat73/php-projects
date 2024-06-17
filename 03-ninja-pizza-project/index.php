@@ -22,6 +22,8 @@ include_once "loader/db_connection.php";
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_OBJ);
         $result = $stmt->fetchAll();
+
+        $conn = null;
         ?>
 
         <?php if ($result) : ?>
