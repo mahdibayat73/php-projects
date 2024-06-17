@@ -35,7 +35,7 @@ include_once "loader/db_connection.php";
                             <p class="card-text">
                                 <?php echo $row->ingredients; ?>
                             </p>
-                            <a href="pizza-single.php?id=<?php echo $row->id; ?>" class="card-link btn btn-primary">Card link</a>
+                            <a href="pizza-single.php?id=<?php echo $row->id; ?>" class="card-link btn btn-primary">Show Pizza</a>
                         </div>
                     </div>
                 </div>
