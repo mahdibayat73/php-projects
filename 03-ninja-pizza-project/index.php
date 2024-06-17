@@ -1,6 +1,6 @@
 <?php
 session_start();
-$title = "Home page";
+$pageTitle = "Home page";
 include_once "inc/header.php";
 include_once "loader/db_connection.php";
 ?>
@@ -35,7 +35,7 @@ include_once "loader/db_connection.php";
                             <p class="card-text">
                                 <?php echo $row->ingredients; ?>
                             </p>
-                            <a href="#" class="card-link btn btn-primary">Card link</a>
+                            <a href="pizza-single.php?id=<?php echo $row->id; ?>" class="card-link btn btn-primary">Card link</a>
                         </div>
                     </div>
                 </div>
