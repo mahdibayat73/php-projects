@@ -5,8 +5,15 @@ include_once "inc/header.php";
 include_once "loader/db_connection.php";
 
 // Check GET request id param
+function validate_input($data)
+{
+    $data = trim($data);
+    $data = stripcslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+}
 if (isset($_GET['id'])) {
-    $id = $_GET['id'];
+    $id = validate_input($_GET['id']);
     // Sql to get data
     try {
         $sql = "SELECT * FROM pizzas WHERE id = $id";
